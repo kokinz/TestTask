@@ -1,5 +1,5 @@
 const AppRoute = {
-  MAIN: '/products',
+  PRODUCTS: '/products',
   CREATE: '/create',
   PRODUCT: '/products/:id',
   EDIT: '/products/:id/edit',
@@ -9,4 +9,9 @@ const APIRoute = {
   PRODUCTS: '/products',
 };
 
-export {AppRoute, APIRoute};
+const Tab = {
+  PRODUCTS: 'Список Продуктов',
+  CREATED_PRODUCTS: 'Список Созданных Продуктов',
+};
+
+export {AppRoute, APIRoute, Tab};

@@ -21,9 +21,9 @@
   height: 100%;
 
   font-family: 'Montserrat', 'Tahoma', sans-serif;
-  color: #FFFFFF;
+  color: #0E0E0E;
 
-  background-color: #151A22;
+  background-color: #FFFEE1;
 }
 
 .root {
@@ -39,7 +39,7 @@
 
 .link {
   font-family: 'Montserrat', 'Tahoma', sans-serif;
-  color: #FFFFFF;
+  color: #0E0E0E;
   text-decoration: none;
   cursor: pointer;
 
@@ -53,16 +53,24 @@
 }
 
 .list {
-  margin: 0;
-  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 30px 0;
   list-style: none;
 }
 
-.button {
-  display: block;
+.container {
+  max-width: 960px;
   margin: 0 auto;
+}
+
+.button {
+  display: inline-block;
+  margin: 0 20px 50px;
   width: 100%;
-  max-width: 337px;
+  max-width: 197px;
   height: 48px;
 
   font-size: 19px;

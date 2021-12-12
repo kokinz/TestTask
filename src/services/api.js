@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const BACKEND_URL = 'https://fakestoreapi.com/';
-const REQUEST_TIMEOUT = 5000;
+const REQUEST_TIMEOUT = 15000;
 
 const createAPI = () => {
   const api = axios.create({
