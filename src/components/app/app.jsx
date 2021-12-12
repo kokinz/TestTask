@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Redirect, Switch, Route} from 'react-router-dom';
 
-import {getProducts, getLoadedDataStatus} from '../../store/products-data/selectors.js';
-import productProp from '../../store/product-prop.js';
+import {getLoadedDataStatus} from '../../store/products-data/selectors.js';
 
 import './app.scss';
 
@@ -14,7 +13,7 @@ import ProductsPage from '../products-page/products-page';
 import CreatePage from '../create-page/create-page';
 import ProductPage from '../product-page/product-page';
 
-function App({films, isDataLoaded}) {
+function App({isDataLoaded}) {
   if (!isDataLoaded) {
     return (
       <LoadingScreen />
@@ -43,12 +42,10 @@ function App({films, isDataLoaded}) {
 }
 
 App.propTypes = {
-  products: PropTypes.arrayOf(productProp).isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  products: getProducts(state),
   isDataLoaded: getLoadedDataStatus(state),
 });
 
