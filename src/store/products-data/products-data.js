@@ -10,6 +10,10 @@ const updateProduct = (product, array) => {
   return [...array.slice(0, product.index), product, ...array.slice(product.index + 1)];
 };
 
+const deleteProduct = (index, array) => {
+  return [...array.slice(0, index), ...array.slice(index + 1)];
+};
+
 const productsData = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_PRODUCTS:
@@ -32,6 +36,13 @@ const productsData = (state = initialState, action) => {
         ...state,
         createdProducts: updateProduct(action.payload, state.createdProducts),
       };
+      case ActionType.DELETE_CREATED_PRODUCT:
+        localStorage.setItem('createdProducts', JSON.stringify(deleteProduct(action.payload, state.createdProducts)));
+
+        return {
+          ...state,
+          createdProducts: deleteProduct(action.payload, state.createdProducts),
+        };
     default:
       return state;
   }

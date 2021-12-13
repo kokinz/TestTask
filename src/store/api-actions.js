@@ -1,4 +1,4 @@
-import {loadProducts, addCreatedProduct, updateCreatedProduct, redirectToRoute} from './actions.js';
+import {loadProducts, addCreatedProduct, deleteCreatedProduct, updateCreatedProduct, redirectToRoute} from './actions.js';
 import {APIRoute, AppRoute} from '../const.js';
 
 
@@ -19,4 +19,11 @@ const updateProduct = (form, fakeForm) => (dispatch, _getState, api) => (
     .then(() => dispatch(redirectToRoute(AppRoute.PRODUCTS)))
 );
 
-export {fetchProductsList, postProduct, updateProduct};
+const deleteProduct = (index) => (dispatch, _getState, api) => (
+  api.delete(`${APIRoute.PRODUCTS}/7`)
+    .then(() => dispatch(deleteCreatedProduct(index)))
+    .then(() => dispatch(redirectToRoute(AppRoute.PRODUCTS)))
+    .then(() => alert('Успешно удалено!'))
+);
+
+export {fetchProductsList, postProduct, updateProduct , deleteProduct};

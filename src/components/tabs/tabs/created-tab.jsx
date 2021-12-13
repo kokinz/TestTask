@@ -6,10 +6,15 @@ import { getCreatedProducts } from '../../../store/products-data/selectors';
 import { Link } from 'react-router-dom';
 import { generatePath } from 'react-router';
 import { AppRoute } from '../../../const';
+import { deleteProduct } from '../../../store/api-actions';
 
-function CreatedTab({products}) {
+function CreatedTab({products, onDeleteProduct}) {
   const [isEnabled, setIsEnabled] = useState(false);
   const handleSwitchChange = () => setIsEnabled(previousState => !previousState);
+
+  const handleProductDelete = (evt) => {
+    onDeleteProduct(parseInt(evt.target.dataset.index, 10));
+  }
 
   return (
     <>
@@ -48,7 +53,7 @@ function CreatedTab({products}) {
             <td className="table__ceil">{product.published ? 'Да' : 'Нет'}</td>
             <td className="table__ceil">{product.date}</td>
             <td className="table__ceil"><Link to={generatePath(AppRoute.EDIT, {id: index})}>Редактировать</Link></td>
-            <td className="table__ceil"><button type="button" className="button">Удалить</button></td>
+            <td className="table__ceil"><button data-index={index} type="button" className="button" onClick={handleProductDelete}>Удалить</button></td>
           </tr>
         )) : products.map((product, index) => (
           <tr key={product.title + product.id}>
@@ -59,7 +64,7 @@ function CreatedTab({products}) {
             <td className="table__ceil">{product.published ? 'Да' : 'Нет'}</td>
             <td className="table__ceil">{product.date}</td>
             <td className="table__ceil"><Link to={generatePath(AppRoute.EDIT, {id: index})}>Редактировать</Link></td>
-            <td className="table__ceil"><button type="button" className="button">Удалить</button></td>
+            <td className="table__ceil"><button data-index={index} type="button" className="button" onClick={handleProductDelete}>Удалить</button></td>
           </tr>
         ))}
       </tbody>
@@ -83,5 +88,11 @@ const mapStateToProps = (state) => ({
   products: getCreatedProducts(state),
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onDeleteProduct(index) {
+    dispatch(deleteProduct(index));
+  },
+});
+
 export {CreatedTab};
-export default connect(mapStateToProps, null)(CreatedTab);
+export default connect(mapStateToProps, mapDispatchToProps)(CreatedTab);

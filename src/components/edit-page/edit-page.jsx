@@ -5,9 +5,9 @@ import {useParams} from 'react-router-dom';
 import { getCreatedProducts } from '../../store/products-data/selectors';
 
 import Header from '../header/header';
-import { updateProduct } from '../../store/api-actions';
+import { deleteProduct, updateProduct } from '../../store/api-actions';
 
-function EditPage({products, onUpdateProduct}) {
+function EditPage({products, onUpdateProduct, onDeleteProduct}) {
   const productId = parseInt(useParams().id, 10);
   const product = products[productId];
 
@@ -80,6 +80,10 @@ function EditPage({products, onUpdateProduct}) {
     onUpdateProduct(form, fakeForm);
   }
 
+  const handleProductDelete = () => {
+    onDeleteProduct(productId);
+  }
+
   return (
     <>
       <Header />
@@ -108,6 +112,8 @@ function EditPage({products, onUpdateProduct}) {
 
           <button type="submit" className="button">Отправить</button>
         </form>
+
+        <button type="button" className="button" onClick={handleProductDelete}>Удалить</button>
       </section>
     </>
   );
@@ -131,6 +137,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onUpdateProduct(form, fake) {
     dispatch(updateProduct(form , fake));
+  },
+  onDeleteProduct(index) {
+    dispatch(deleteProduct(index));
   },
 });
 
