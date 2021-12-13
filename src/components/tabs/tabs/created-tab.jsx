@@ -35,6 +35,7 @@ function CreatedTab({products}) {
           <th className="table__header">Опубликовано</th>
           <th className="table__header">Опубликовано</th>
           <th className="table__header">Редактировать</th>
+          <th className="table__header">Удалить</th>
         </tr>
       </thead>
       <tbody>
@@ -47,6 +48,7 @@ function CreatedTab({products}) {
             <td className="table__ceil">{product.published ? 'Да' : 'Нет'}</td>
             <td className="table__ceil">{product.date}</td>
             <td className="table__ceil"><Link to={generatePath(AppRoute.EDIT, {id: index})}>Редактировать</Link></td>
+            <td className="table__ceil"><button type="button" className="button">Удалить</button></td>
           </tr>
         )) : products.map((product, index) => (
           <tr key={product.title + product.id}>
@@ -57,6 +59,7 @@ function CreatedTab({products}) {
             <td className="table__ceil">{product.published ? 'Да' : 'Нет'}</td>
             <td className="table__ceil">{product.date}</td>
             <td className="table__ceil"><Link to={generatePath(AppRoute.EDIT, {id: index})}>Редактировать</Link></td>
+            <td className="table__ceil"><button type="button" className="button">Удалить</button></td>
           </tr>
         ))}
       </tbody>

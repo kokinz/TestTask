@@ -1,4 +1,4 @@
-import {loadProducts, addCreatedProduct, redirectToRoute} from './actions.js';
+import {loadProducts, addCreatedProduct, updateCreatedProduct, redirectToRoute} from './actions.js';
 import {APIRoute, AppRoute} from '../const.js';
 
 
@@ -13,4 +13,10 @@ const postProduct = (form, fakeForm) => (dispatch, _getState, api) => (
     .then(() => dispatch(redirectToRoute(AppRoute.PRODUCTS)))
 );
 
-export {fetchProductsList, postProduct};
+const updateProduct = (form, fakeForm) => (dispatch, _getState, api) => (
+  api.put(`${APIRoute.PRODUCTS}/7`, fakeForm)
+    .then(() => dispatch(updateCreatedProduct({id: form.index, ...form})))
+    .then(() => dispatch(redirectToRoute(AppRoute.PRODUCTS)))
+);
+
+export {fetchProductsList, postProduct, updateProduct};

@@ -1,22 +1,29 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { postProduct } from '../../store/api-actions';
+import {useParams} from 'react-router-dom';
+import { getCreatedProducts } from '../../store/products-data/selectors';
 
 import Header from '../header/header';
+import { updateProduct } from '../../store/api-actions';
 
-function CreatePage({addProduct}) {
+function EditPage({products, onUpdateProduct}) {
+  const productId = parseInt(useParams().id, 10);
+  const product = products[productId];
+
   const [form, setForm] = useState({
-    title: '',
-    price: 0,
-    description: '',
-    published: false,
-    date: '',
+    title: product.title,
+    price: product.price,
+    description: product.description,
+    published: product.published,
+    date: product.date,
+    index: productId,
   });
 
   const [fakeForm, setFakeForm] = useState({
-    title: '',
-    price: 0,
-    description: '',
+    title: product.title,
+    price: product.price,
+    description: product.description,
     image: 'https://i.pravatar.cc',
     category: 'electronic'
   });
@@ -70,33 +77,33 @@ function CreatePage({addProduct}) {
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
 
-    addProduct(form, fakeForm);
+    onUpdateProduct(form, fakeForm);
   }
 
   return (
     <>
       <Header />
       <section className="create-product container">
-        <h2>Создание</h2>
+        <h2>Редактирование</h2>
         <form action="https://fakestoreapi.com/products" className="product-form" onSubmit={handleFormSubmit}>
           <div className="product-form__wrapper">
             <label className="product-form__label" htmlFor="name">Название:</label>
-            <input type="text" id="name" required onChange={handleTitleChange}/>
+            <input value={form.title} type="text" id="name" required onChange={handleTitleChange}/>
           </div>
 
           <div className="product-form__wrapper">
             <label className="product-form__label" htmlFor="price">Цена:</label>
-            <input type="number" id="price" required onChange={handlePriceChange} />
+            <input value={Number(form.price)} type="number" id="price" required onChange={handlePriceChange} />
           </div>
 
           <div className="product-form__wrapper">
             <label className="product-form__label" htmlFor="description">Описание:</label>
-            <textarea className="product-form__textarea" name="description" id="description" cols="30" rows="10" required onChange={handleDescriptionChange}></textarea>
+            <textarea value={form.description} className="product-form__textarea" name="description" id="description" cols="30" rows="10" required onChange={handleDescriptionChange}></textarea>
           </div>
 
           <div className="product-form__wrapper">
             <label className="product-form__label" htmlFor="published">Опубликован :</label>
-            <input type="checkbox" id="published" onChange={handlePublishedChange}/>
+            <input checked={form.published} type="checkbox" id="published" onChange={handlePublishedChange}/>
           </div>
 
           <button type="submit" className="button">Отправить</button>
@@ -106,11 +113,26 @@ function CreatePage({addProduct}) {
   );
 }
 
+EditPage.propTypes = {
+  products: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    published: PropTypes.bool.isRequired,
+    date: PropTypes.string.isRequired,
+  })).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  products: getCreatedProducts(state),
+});
+
 const mapDispatchToProps = (dispatch) => ({
-  addProduct(form, fake) {
-    dispatch(postProduct(form , fake));
+  onUpdateProduct(form, fake) {
+    dispatch(updateProduct(form , fake));
   },
 });
 
-export {CreatePage};
-export default connect(null, mapDispatchToProps)(CreatePage);
+export {EditPage};
+export default connect(mapStateToProps, mapDispatchToProps)(EditPage);

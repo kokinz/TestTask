@@ -12,6 +12,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import ProductsPage from '../products-page/products-page';
 import CreatePage from '../create-page/create-page';
 import ProductPage from '../product-page/product-page';
+import EditPage from '../edit-page/edit-page';
 
 function App({isDataLoaded}) {
   if (!isDataLoaded) {
@@ -36,6 +37,10 @@ function App({isDataLoaded}) {
 
       <Route exact path={AppRoute.PRODUCT}>
         <ProductPage />
+      </Route>
+
+      <Route exact path={AppRoute.EDIT}>
+        <EditPage />
       </Route>
     </Switch>
   );

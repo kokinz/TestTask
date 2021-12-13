@@ -1,6 +1,7 @@
 const ActionType = {
   LOAD_PRODUCTS: 'products/loadProducts',
   ADD_CREATED_PRODUCT: 'products/addProduct',
+  UPDATE_CREATED_PRODUCT: 'products/updateProduct',
   REDIRECT_TO_ROUTE: 'common/redirectToRoute',
 };
 
@@ -14,9 +15,14 @@ const addCreatedProduct = (product) => ({
   payload: product,
 });
 
+const updateCreatedProduct = (product) => ({
+  type: ActionType.UPDATE_CREATED_PRODUCT,
+  payload: product,
+});
+
 const redirectToRoute = (url) => ({
   type: ActionType.REDIRECT_TO_ROUTE,
   payload: url,
 });
 
-export {ActionType, loadProducts, addCreatedProduct, redirectToRoute};
+export {ActionType, loadProducts, addCreatedProduct, redirectToRoute, updateCreatedProduct};
