@@ -120,6 +120,8 @@ function EditPage({products, onUpdateProduct, onDeleteProduct}) {
 }
 
 EditPage.propTypes = {
+  onUpdateProduct: PropTypes.func.isRequired,
+  onDeleteProduct: PropTypes.func.isRequired,
   products: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { postProduct } from '../../store/api-actions';
 
@@ -105,6 +106,10 @@ function CreatePage({addProduct}) {
     </>
   );
 }
+
+CreatePage.propTypes = {
+  addProduct: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   addProduct(form, fake) {

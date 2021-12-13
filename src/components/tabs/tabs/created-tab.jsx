@@ -74,6 +74,7 @@ function CreatedTab({products, onDeleteProduct}) {
 }
 
 CreatedTab.propTypes = {
+  onDeleteProduct: PropTypes.func.isRequired,
   products: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
