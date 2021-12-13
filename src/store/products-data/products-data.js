@@ -14,6 +14,13 @@ const productsData = (state = initialState, action) => {
         products: action.payload,
         isDataLoaded: true,
       };
+    case ActionType.ADD_CREATED_PRODUCT:
+      localStorage.setItem('createdProducts', JSON.stringify([...state.createdProducts, action.payload]));
+
+      return {
+        ...state,
+        createdProducts: [...state.createdProducts, action.payload],
+      };
     default:
       return state;
   }

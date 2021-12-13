@@ -12,9 +12,11 @@ import App from './components/app/app';
 import {createAPI} from './services/api';
 import rootReducer from './store/root-reduser.js';
 import {fetchProductsList} from './store/api-actions';
+import {redirect} from './store/middlewares/redirect';
 
 const store = createStore(rootReducer, composeWithDevTools(
-  applyMiddleware(thunk.withExtraArgument(createAPI()))
+  applyMiddleware(thunk.withExtraArgument(createAPI())),
+  applyMiddleware(redirect),
 ));
 
 store.dispatch(fetchProductsList());
